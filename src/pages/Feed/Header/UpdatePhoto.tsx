@@ -49,51 +49,49 @@ const UpdatePhoto: React.FC<Props> = ({
 		setFile(null);
 	};
 
-	return (
-		<div className="flex flex-col items-center gap-4">
-			{!preview && (
-				<>
-					<Webcam
-						ref={webcamRef}
-						audio={false}
-						screenshotFormat="image/png"
-						className="rounded shadow"
-						videoConstraints={videoConstraints}
-					/>
-					<button
-						className="px-4 py-2 rounded bg-blue-600 text-white"
-						onClick={capture}
-					>
-						Take Photo
-					</button>
-					<span className="text-sm text-gray-500">or</span>
-					<Input
-						type="file"
-						accept={accept}
-						onChange={handleFile}
-						className="block"
-					/>
-				</>
-			)}
+	if (preview && file) {
+		return (
+			<>
+				<img
+					src={preview}
+					alt="Selected"
+					className="rounded shadow-md object-cover max-h-[50vh]"
+				/>
+				<div className="flex gap-4 w-full justify-center">
+					<Button onClick={() => onSubmit?.(file)} type="submit">
+						Save changes
+					</Button>
+					<Button onClick={reset} variant="secondary">
+						Retake / Choose Again
+					</Button>
+				</div>
+			</>
+		);
+	}
 
-			{preview && file && (
-				<>
-					<img
-						src={preview}
-						alt="Selected"
-						className="rounded shadow-md object-cover max-h-[50vh]"
-					/>
-					<div className="flex gap-4 w-full justify-center">
-						<Button onClick={() => onSubmit?.(file)} type="submit">
-							Save changes
-						</Button>
-						<Button onClick={reset} variant="secondary">
-							Retake / Choose Again
-						</Button>
-					</div>
-				</>
-			)}
-		</div>
+	return (
+		<>
+			<Webcam
+				ref={webcamRef}
+				audio={false}
+				screenshotFormat="image/png"
+				className="rounded shadow"
+				videoConstraints={videoConstraints}
+			/>
+			<button
+				className="px-4 py-2 rounded bg-blue-600 text-white"
+				onClick={capture}
+			>
+				Take Photo
+			</button>
+			<span className="text-sm text-gray-500">or</span>
+			<Input
+				type="file"
+				accept={accept}
+				onChange={handleFile}
+				className="block"
+			/>
+		</>
 	);
 };
 

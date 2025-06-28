@@ -41,7 +41,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import Uploader from "./UpdatePhoto";
+import UploadPhoto from "./UpdatePhoto";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -167,10 +167,8 @@ const Header = () => {
 												<DialogTitle>Update Photo</DialogTitle>
 												<DialogDescription></DialogDescription>
 											</DialogHeader>
-											<div className="grid gap-4">
-												<div className="grid gap-3">
-													<Uploader onSubmit={handleSubmit} />
-												</div>
+											<div className="flex flex-col items-center gap-4">
+												<UploadPhoto onSubmit={handleSubmit} />
 											</div>
 											<DialogFooter></DialogFooter>
 										</DialogContent>
